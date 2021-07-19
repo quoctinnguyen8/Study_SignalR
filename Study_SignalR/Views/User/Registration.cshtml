@@ -1,0 +1,45 @@
+﻿@model Study_SignalR.ViewModels.User.Registration
+
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<h1 class="text-center">Đăng ký tài khoản</h1>
+<div class="row justify-content-center mt-4">
+    <div class="col-sm-7 col-md-6 col-lg-4">
+        <form asp-action="Registration">
+            @if (TempData["Err"]!=null)
+			{
+                <div class="text-danger">Lỗi: @TempData["Err"]</div>
+			}
+            <div class="form-group">
+                <label for="Username" class="control-label">Tên đăng nhập</label>
+                <span asp-validation-for="Username" class="text-danger small"></span>
+                <input asp-for="Username" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Password" class="control-label">Mật khẩu</label>
+                <span asp-validation-for="Password" class="text-danger small"></span>
+                <input asp-for="Password" type="password" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="ConfirmPassword" class="control-label">Xác nhận mật khẩu</label>
+                <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="FullName" class="control-label">Tên đầy đủ</label>
+                <span asp-validation-for="FullName" class="text-danger small"></span>
+                <input asp-for="FullName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Đăng ký" class="btn btn-primary btn-block" />
+                <a asp-action="Login" class="btn btn-link btn-block">Đã có tài khoản? Đăng nhập ngay</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

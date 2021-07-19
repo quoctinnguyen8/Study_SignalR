@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Study_SignalR.Entities.AppUser>
+@using System.Security.Claims;
+
+@{
+	ViewData["Title"] = "Chat!";
+}
+<input id="myId" type="hidden" value="@Context.User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+<div class="d-flex justify-content-between align-items-center">
+	<h1>Chat nhé!</h1>
+	<button id="btn-back" class="btn btn-light d-sm-none d-none"><i class="bi bi-arrow-bar-left"></i> Quay lại</button>
+</div>
+
+<p id="partner" class="d-sm-none d-none">Bạn đang chat với <span class="text-primary"></span>.</p>
+
+<div class="row full-h">
+	<div class="col-sm-6 col-md-5 col-xl-4 h-100">
+		<ul class="list-group list-group-flush border rounded h-100 overflow-auto" id="listUser">
+			@foreach (var item in Model)
+			{
+				<li class="list-group-item d-flex justify-content-between align-items-center cursor-pointer hover-light">
+					<div class="offline js-user-state" data-userid="@item.Id">@item.FullName <small>(@item.Username)</small></div>
+				</li>
+			}
+		</ul>
+	</div>
+	<div class="col-sm-6 col-md-7 col-xl-8 h-100 position-relative sm-hide" id="mesg-box-container">
+		<div class="w-100 h-100 border rounded overflow-hidden d-none">
+			<div class="mesg-container">
+				<div class="mesg-container-box overflow-auto p-3 h-100" id="mesg-box">
+					<div class="me">
+						<div class="mesg">Tin nhắn của tôi</div>
+					</div>
+					<div class="friend">
+						<div class="mesg">Tin nhắn của người ta</div>
+					</div>
+				</div>
+			</div>
+			<div class="mesg-input p-2 border-top bg-light">
+				<form>
+					<div class="input-group">
+						<textarea class="form-control" id="mesg-text" placeholder="Aa..." rows="2"></textarea>
+						<div class="input-group-append d-sm-none">
+							<button type="button" id="btn-send" class="btn btn-info">&nbsp;<i class="bi bi-arrow-right"></i>&nbsp;</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<p id="sys-mesg">Chọn một người bạn để bắt đầu đoạn chat</p>
+		<span class="d-none position-absolute rounded-circle cursor-pointer font-weight-bold chat-close sm-hide"
+			  id="js-chat-close">
+			<i class="bi bi-x-circle"></i>
+		</span>
+	</div>
+</div>
+
+@section Scripts{
+	<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,44 @@
+﻿@model Study_SignalR.ViewModels.User.Login
+
+@{
+	ViewData["Title"] = "Đăng nhập";
+}
+
+<h1 class="text-center">Đăng nhập</h1>
+<div class="row justify-content-center mt-4">
+	<div class="col-sm-7 col-md-6 col-lg-4">
+		<form asp-action="Login">
+			@if (TempData["FromReg"] != null)
+			{
+				<div class="text-success my-2">@TempData["FromReg"]</div>
+			}
+			else if (TempData["Err"] != null)
+			{
+				<div class="text-danger my-2">@TempData["Err"]</div>
+			}
+			<div class="form-group">
+				<label for="Username" class="control-label">Tên đăng nhập</label>
+				<span asp-validation-for="Username" class="text-danger small"></span>
+				<input asp-for="Username" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="Password" class="control-label">Mật khẩu</label>
+				<span asp-validation-for="Password" class="text-danger small"></span>
+				<input asp-for="Password" type="password" class="form-control" />
+			</div>
+			<div class="form-group form-check">
+				<label class="form-check-label">
+					<input class="form-check-input" asp-for="RememberMe" /> Ghi nhớ đăng nhập
+				</label>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Đăng nhập" class="btn btn-primary btn-block" />
+				<a asp-action="Registration" class="btn btn-link btn-block">Chưa có tài khoản? đăng ký ngay</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
