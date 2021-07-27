@@ -216,3 +216,8 @@ body {
         border-bottom-right-radius: 0!important;
     }
 }
+
+.required:after{
+    content:' *';
+    color: red;
+}
